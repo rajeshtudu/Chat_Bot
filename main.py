@@ -10,7 +10,6 @@ from dotenv import load_dotenv
 import google.api_core.exceptions
 import os
 import time
-from tenacity import retry, wait_random_exponential, stop_after_attempt
 
 # Load environment variables
 load_dotenv()
@@ -21,8 +20,8 @@ st.title("📚 Document Q&A + Appointment Chatbot")
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
-# Load documents
 def load_documents(folder_path: str):
+    from langchain.document_loaders import PyPDFLoader, TextLoader
     documents = []
     if not os.path.exists(folder_path):
         st.error(f"❌ The folder '{folder_path}' does not exist. Please create it and add PDF or TXT files.")
@@ -39,11 +38,6 @@ def load_documents(folder_path: str):
             documents.extend(docs)
     return documents
 
-# Retry logic for embedding
-@retry(wait=wait_random_exponential(min=1, max=10), stop=stop_after_attempt(3))
-def embed_documents(docs, embeddings):
-    return FAISS.from_documents(docs, embeddings)
-
 @st.cache_resource(show_spinner=False)
 def get_vectorstore():
     try:
@@ -51,19 +45,12 @@ def get_vectorstore():
         if not docs:
             st.error("❌ No documents found in the 'docs' folder. Please add PDF or TXT files.")
             return None
-        st.success(f"✅ Loaded {len(docs)} chunks.")
-        
-        # Optional: Limit to first few chunks to avoid API timeout
-        limited_docs = docs[:10]  # limit to first 10 chunks
-        st.info(f"🔍 Embedding {len(limited_docs)} chunks (limited for performance).")
-
+        st.success(f"✅ Loaded {len(docs)} documents.")
         embeddings = GoogleGenerativeAIEmbeddings(
             model="models/embedding-001",
             google_api_key=os.getenv("GOOGLE_API_KEY")
         )
-
-        return embed_documents(limited_docs, embeddings)
-
+        return FAISS.from_documents(docs, embeddings)
     except Exception as e:
         st.error(f"❌ Vector store error: {e}")
         return None

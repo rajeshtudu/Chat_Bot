@@ -105,7 +105,7 @@ tools = [
     )
 ]
 # Initialize agent with dummy LLM, since main chat uses DialoGPT
-agent = initialize_agent(tools, llm=None, agent="chat-conversational-react-description", verbose=False)
+agent = initialize_agent(tools, llm, agent="chat-conversational-react-description", verbose=False)
 
 # Store dialoGPT chat history tokens
 if "dialo_history_ids" not in st.session_state:

@@ -39,18 +39,24 @@ if "chat_history" not in st.session_state:
 def load_documents(folder_path: str):
     documents = []
     if not os.path.exists(folder_path):
-        st.error(f"❌ The folder '{folder_path}' does not exist. Please create it and add PDF or TXT files.")
+        st.error(f"❌ The folder '{folder_path}' does not exist.")
         return documents
+
     for filename in os.listdir(folder_path):
         filepath = os.path.join(folder_path, filename)
-        if filename.endswith(".pdf"):
-            loader = PyPDFLoader(filepath)
-            docs = loader.load()
-            documents.extend(docs)
-        elif filename.endswith(".txt"):
-            loader = TextLoader(filepath)
-            docs = loader.load()
-            documents.extend(docs)
+        try:
+            if filename.endswith(".pdf"):
+                loader = PyPDFLoader(filepath)
+                docs = loader.load()
+                documents.extend(docs)
+            elif filename.endswith(".txt"):
+                # Explicitly specify UTF-8 encoding (adjust if needed)
+                loader = TextLoader(filepath, encoding="utf-8")
+                docs = loader.load()
+                documents.extend(docs)
+        except Exception as e:
+            st.error(f"Error loading file {filename}: {e}")
+
     return documents
 
 

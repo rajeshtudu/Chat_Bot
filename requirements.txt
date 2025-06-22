@@ -1,0 +1,9 @@
+streamlit
+langchain>=0.1.13
+langchain-google-genai>=0.0.10
+faiss-cpu
+python-dotenv
+pydantic
+tiktoken
+google-api-core
+dateparser

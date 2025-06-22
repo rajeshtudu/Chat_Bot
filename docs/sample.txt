@@ -1,0 +1,10 @@
+Sample Document for Chatbot
+
+This is a sample text file to test document ingestion.
+
+You can ask questions like:
+- What is this document about?
+- Does this document mention appointments?
+- Who is the document for?
+
+The chatbot will extract answers based on the text contents.

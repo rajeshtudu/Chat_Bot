@@ -1,0 +1,45 @@
+# Python compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment folders
+.venv/
+venv/
+env/
+ENV/
+
+# Environment variables
+.env
+*.env
+
+# Streamlit files and cache
+.streamlit/
+
+# VS Code settings folder
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+
+# Test caches
+.pytest_cache/
+.mypy_cache/
+
+# IDE settings
+.idea/
+
+# Temporary files
+*.tmp

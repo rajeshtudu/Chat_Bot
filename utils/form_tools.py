@@ -1,39 +1,53 @@
 import streamlit as st
 from utils.validation import validate_email, validate_phone, parse_date
 
-def book_appointment_form(_):
-    with st.form("appointment_form"):
-        st.subheader("📅 Book an Appointment")
-        name = st.text_input("Full Name")
-        phone = st.text_input("Phone Number")
-        email = st.text_input("Email Address")
-        date_input = st.text_input("Preferred Appointment Date (e.g., 'next Monday')")
+def book_appointment_form(*args, **kwargs):
+    """
+    A simple conversational form for booking an appointment.
+    Returns a confirmation string or error messages.
+    """
 
-        submitted = st.form_submit_button("Submit")
+    st.markdown("### 🗓️ Book an Appointment")
 
-        if submitted:
-            errors = []
+    # Collect inputs with validation
+    name = st.text_input("Full Name")
+    phone = st.text_input("Phone Number")
+    email = st.text_input("Email Address")
+    date_str = st.text_input("Appointment Date (e.g. 2023-12-31 or 'next Monday')")
 
-            if not name:
-                errors.append("Name is required.")
-            if not validate_phone(phone):
-                errors.append("Invalid phone number format.")
-            if not validate_email(email):
-                errors.append("Invalid email format.")
+    errors = []
 
-            parsed_date = parse_date(date_input)
-            if not parsed_date:
-                errors.append("Could not understand the appointment date.")
+    if name.strip() == "":
+        errors.append("Name is required.")
 
-            if errors:
-                for error in errors:
-                    st.error(error)
-                return "❌ Failed to book appointment. Please correct the errors."
+    if phone and not validate_phone(phone):
+        errors.append("Invalid phone number format.")
 
-            st.success(f"✅ Appointment booked for {name} on {parsed_date.strftime('%Y-%m-%d')}")
-            return {
-                "name": name,
-                "phone": phone,
-                "email": email,
-                "date": parsed_date.strftime('%Y-%m-%d')
-            }
+    if email and not validate_email(email):
+        errors.append("Invalid email address format.")
+
+    parsed_date = None
+    if date_str:
+        parsed_date = parse_date(date_str)
+        if parsed_date is None:
+            errors.append("Invalid date format. Please enter a full date like YYYY-MM-DD or relative date like 'next Monday'.")
+    else:
+        errors.append("Appointment date is required.")
+
+    # Submit button
+    if st.button("Confirm Appointment"):
+        if errors:
+            for err in errors:
+                st.error(err)
+            return "Appointment booking failed due to validation errors."
+        else:
+            # Here you could save the appointment data to a DB or send an email, etc.
+            confirmation_msg = (
+                f"Thank you {name}! Your appointment is booked for {parsed_date.strftime('%Y-%m-%d')}.\n"
+                f"We will contact you at {phone} or {email} if needed."
+            )
+            st.success(confirmation_msg)
+            return confirmation_msg
+
+    # Return empty string if form not submitted
+    return ""

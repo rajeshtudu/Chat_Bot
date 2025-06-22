@@ -33,9 +33,12 @@ def load_documents(folder_path: str):
             docs = loader.load()
             documents.extend(docs)
         elif filename.endswith(".txt"):
-            loader = TextLoader(filepath)
-            docs = loader.load()
-            documents.extend(docs)
+            try:
+                loader = TextLoader(filepath, encoding="utf-8")
+                docs = loader.load()
+                documents.extend(docs)
+            except Exception as e:
+                st.error(f"❌ Failed to load {filename}: {e}")
     return documents
 
 @st.cache_resource(show_spinner=False)

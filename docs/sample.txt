@@ -1,10 +1,19 @@
 Sample Document for Chatbot
 
-This is a sample text file to test document ingestion.
+This is a sample text file to test document ingestion and appointment booking.
 
 You can ask questions like:
 - What is this document about?
-- Does this document mention appointments?
-- Who is the document for?
+- How can I book an appointment?
+- Who should I contact to schedule a meeting?
+- What information is required for booking?
 
-The chatbot will extract answers based on the text contents.
+To book an appointment, users are expected to provide:
+- Full Name
+- Phone Number
+- Email Address
+- Preferred Date (e.g., Next Monday, 2025-07-01, or “tomorrow”)
+
+The chatbot will guide users through a conversational form and validate their inputs to ensure correct contact details and date format (YYYY-MM-DD).
+
+This file is designed to test both document Q&A and the appointment booking feature of the chatbot.

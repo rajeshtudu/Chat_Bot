@@ -1,19 +1,25 @@
-Sample Document for Chatbot
+Sample Appointment Information Document
 
-This is a sample text file to test document ingestion and appointment booking.
+This is a sample document designed to test document ingestion and appointment booking features in the chatbot.
 
 You can ask questions like:
 - What is this document about?
 - How can I book an appointment?
-- Who should I contact to schedule a meeting?
 - What information is required for booking?
+- Who should I contact to schedule a meeting?
+- When are appointments available?
 
-To book an appointment, users are expected to provide:
+To book an appointment, users must provide the following information:
 - Full Name
-- Phone Number
-- Email Address
-- Preferred Date (e.g., Next Monday, 2025-07-01, or “tomorrow”)
+- Phone Number (valid format: 10 digits)
+- Email Address (e.g., user@example.com)
+- Preferred Date (e.g., "Next Monday", "2025-07-01", or "tomorrow")
 
-The chatbot will guide users through a conversational form and validate their inputs to ensure correct contact details and date format (YYYY-MM-DD).
+The chatbot will guide users through a conversational form and validate their inputs to ensure correct contact details and a proper date format (YYYY-MM-DD). 
 
-This file is designed to test both document Q&A and the appointment booking feature of the chatbot.
+Appointments are available:
+- Monday to Friday: 10:00 AM – 6:00 PM
+- Saturday: 10:00 AM – 2:00 PM
+- Sunday: Closed
+
+Users can cancel or reschedule appointments up to 3 hours in advance without penalty.

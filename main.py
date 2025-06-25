@@ -106,7 +106,14 @@ if qa_chain is None:
 # Mock LLM that returns a properly formatted agent response to avoid parsing errors
 class MockLLM(LLM):
     def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
-        # This string is structured to match expected agent output format
+        if "name" in prompt.lower():
+            return "Please enter your full name."
+        elif "phone" in prompt.lower():
+            return "What's your phone number?"
+        elif "email" in prompt.lower():
+            return "Please provide your email."
+        elif "date" in prompt.lower():
+            return "When would you like to schedule the appointment?"
         return "Final Answer: Your appointment has been successfully booked!"
 
     @property

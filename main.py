@@ -133,6 +133,9 @@ agent = initialize_agent(
     agent="chat-conversational-react-description",
     verbose=False,
     handle_parsing_errors=True,
+    max_iterations=10,  # increase this
+    max_execution_time=60  # seconds
+
 )
 
 user_input = st.text_input("Ask something or type 'I want to book an appointment'")

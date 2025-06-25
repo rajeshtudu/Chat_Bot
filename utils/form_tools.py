@@ -7,7 +7,7 @@ def book_appointment_form(*args, **kwargs):
     Returns a confirmation string or error messages.
     """
 
-    st.markdown("### 🗓️ Book an Appointment")
+    st.markdown("### Book an Appointment")
 
     # Collect inputs with validation
     name = st.text_input("Full Name")

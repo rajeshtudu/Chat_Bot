@@ -5,7 +5,7 @@ from langchain.document_loaders import PyPDFLoader, TextLoader
 def load_documents(folder_path: str):
     documents = []
     if not os.path.exists(folder_path):
-        st.error(f"❌ The folder '{folder_path}' does not exist. Please create it and add PDF or TXT files.")
+        st.error(f"The folder '{folder_path}' does not exist. Please create it and add PDF or TXT files.")
         return documents
     for filename in os.listdir(folder_path):
         filepath = os.path.join(folder_path, filename)

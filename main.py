@@ -133,8 +133,8 @@ agent = initialize_agent(
     agent="chat-conversational-react-description",
     verbose=False,
     handle_parsing_errors=True,
-    max_iterations=10,  # increase this
-    max_execution_time=60  # seconds
+    max_iterations=1000,  
+    max_execution_time=60  
 
 )
 
